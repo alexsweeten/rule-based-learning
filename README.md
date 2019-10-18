@@ -1,6 +1,9 @@
 # Rule Based Learning for Transcriptional Regulation
 <img src="https://raw.githubusercontent.com/hackseq/hackseq_graphics/master/0_logo/hackseq_logo.png">
-This is the GitHub repo for the hackseq19 project: Rule Based Learning for Transcriptional Regulation!
+This is the GitHub repo for the hackseq19 project: Rule Based Learning for Transcriptional Regulation! Our goals during hackseq19 are to: 
+
+* a) Build an accurate classifier for a given gene regulation dataset.
+* b) Build an interpretable classifier that outputs useful rules, describing each dataset.
 
 Our [leaderboard page is available here](http://spheric-alcove-256103.appspot.com/). You are required to sign in using your Google account. Once signed in, you can choose your username and submit files to the leaderboard. The leaderboard is based on a hacked version of my [Natural Language Processing course professor's website](http://anoopsarkar.github.io/nlp-class/). 
 
