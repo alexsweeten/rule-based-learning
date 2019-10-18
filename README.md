@@ -24,7 +24,7 @@ Jade Chen <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.g
 
 Kate Gibson <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/headphones.gif" width="275" height="275" />
 
-Oriol Forne <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/hot.gif" width="275" height="275" />
+Oriol Fornes <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/hot.gif" width="275" height="275" />
 
 Paula Restrepo <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/pizza.gif" width="275" height="275" />
 
