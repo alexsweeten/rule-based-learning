@@ -5,7 +5,7 @@ This is the GitHub repo for the hackseq19 project: Rule Based Learning for Trans
 Our [leaderboard page is available here](http://spheric-alcove-256103.appspot.com/). You are required to sign in using your Google account. Once signed in, you can choose your username and submit files to the leaderboard. The leaderboard is based on a hacked version of my [Natural Language Processing course professor's website](http://anoopsarkar.github.io/nlp-class/). 
 
 <b>Datasets:</b><br />
-* 2 Human Chromosome #1 TFBS
+* 1 Human Chromosome #1 TFBS
 * 1 Ecoli K12 TFBS
 * 2 Ecoli K12 Promoter Region
 * 1 Pokemon
@@ -26,12 +26,8 @@ Kate Gibson <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten
 
 Oriol Fornes <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/hot.gif" width="275" height="275" />
 
-Paula Restrepo <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/pizza.gif" width="275" height="275" />
-
 Priyanka Mishra <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/lemon.gif" width="275" height="275" />
 
 Shawn Hsueh <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/love.gif" width="275" height="275" />
-
-Tabea Stephan <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/rain.gif" width="275" height="275" />
 
 Zakhar Krekhno <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/spin.gif" width="275" height="275" />
