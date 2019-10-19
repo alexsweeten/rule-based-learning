@@ -29,7 +29,7 @@ These come from a variety of sources, including gene regulation databases and pr
 
 ## Results
 
-The following graph represents our progress improving classifier accuracy over the course of hackseq19. x-axis is measure in hours of time, y-axis is measure in terms of F1 Score. Dashed lines represent our "oracle", representing the highest recorded accuracy in the literature. As you can see, we beat the oracle score for Huamn SP1 TFBS! 
+The following graph represents our progress improving classifier accuracy over the course of hackseq19. x-axis is measure in hours of time since the start of our hackathon, y-axis is measure in terms of F1 Score. We annotated times when we noticeably improved our position on the leaderboard. Dashed lines represent our "oracle", representing the highest recorded accuracy in the literature. As you can see, we beat the oracle score for Huamn SP1 TFBS!
 
 <img src="https://github.com/SweetiePi/rule-based-learning/blob/master/plots/plot.png" width="800" height="550">
 
