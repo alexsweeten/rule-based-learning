@@ -2,15 +2,18 @@
 <img src="https://raw.githubusercontent.com/hackseq/hackseq_graphics/master/0_logo/hackseq_logo.png">
 This is the GitHub repo for the hackseq19 project: Rule Based Learning for Transcriptional Regulation! 
 
+## Rationale
+Gene regulatory sites, such as Transcription Factor Binding Sites (TFBS's) and Promoters, are extremely important regions within both eukaryotic and prokaryotic genomes. Predicting whether or not a site acts as a regulatory element is an important, yet surprisingly difficult task. There has been a lot of focus in recent years towards building machine learning (ML) approaches for automatically detecting these genomic regions. In this hackathon, we hope to experiment with some of these tools. 
+
 ## Goals
 Our goals during hackseq19 are to:
 
 * a) Build an accurate classifier for a given gene regulation dataset.
 * b) Build an interpretable classifier that outputs useful rules, describing each dataset.
 
-These goals might be at odds with each other, as more sophisticated neural networks are hard to interpret, while simple decision trees don't have a lot of power.
+We will experiment with many different classifiers, including decision trees, random forests, support vector machines, and neural networks. Accuracy is measured using F1 score, which we can visualize on our leaderboard (see below). Interpretability is measured by how clearly we can deduce rules from our dataset. An example rule:
 
-<img src="https://github.com/SweetiePi/rule-based-learning/blob/master/plots/plot.png">
+`IF  Position[2] == "G" AND Position[3] == "C" THEN Class == "TFBS"`
 
 ## Data
 
@@ -24,11 +27,16 @@ Our [leaderboard page is available here](http://spheric-alcove-256103.appspot.co
 
 These come from a variety of sources, including gene regulation databases and previous Kaggle competitions.<br />
 
-## Rationale
-Transcription Factor Binding Sites (TFBS's) 
+## Results
+
+The following graph represents our progress improving classifier accuracy over the course of hackseq19. x-axis is measure in hours of time, y-axis is measure in terms of F1 Score. Dashed lines represent our "oracle", representing the highest recorded accuracy in the literature. As you can see, we beat the oracle score for Huamn SP1 TFBS! 
+
+<img src="https://github.com/SweetiePi/rule-based-learning/blob/master/plots/plot.png" width="800" height="550">
+
+## Team Members
 
 <b>Team Lead:</b><br />
-Alex Sweeten <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/alex.gif" width="200" height="200" />
+Alex Sweeten <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/alex.gif" width="180" height="180" />
 
 <b>Participants:</b><br />
 Aris Grout <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/birthday.gif" width="275" height="275" />
