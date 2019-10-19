@@ -3,7 +3,7 @@
 This is the GitHub repo for the hackseq19 project: Rule Based Learning for Transcriptional Regulation! 
 
 ## Rationale
-Gene regulatory sites, such as Transcription Factor Binding Sites (TFBS's) and Promoters, are extremely important regions within both eukaryotic and prokaryotic genomes. Predicting whether or not a site acts as a regulatory element is an important, yet surprisingly difficult task. There has been a lot of focus in recent years towards building machine learning (ML) approaches for automatically detecting these genomic regions. In this hackathon, we hope to experiment with some of these tools. 
+Gene regulatory sites, such as Transcription Factor Binding Sites (TFBS) and Promoters, are extremely important regions within both eukaryotic and prokaryotic genomes. Predicting whether or not a site acts as a regulatory element is an important, yet surprisingly difficult task. There has been a lot of focus in recent years towards building machine learning (ML) approaches for automatically detecting these genomic regions. In this hackathon, we hope to experiment with some of these tools. 
 
 ## Goals
 Our goals during hackseq19 are to:
