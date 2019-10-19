@@ -1,9 +1,14 @@
 # Rule Based Learning for Transcriptional Regulation
 <img src="https://raw.githubusercontent.com/hackseq/hackseq_graphics/master/0_logo/hackseq_logo.png">
-This is the GitHub repo for the hackseq19 project: Rule Based Learning for Transcriptional Regulation! Our goals during hackseq19 are to: 
+This is the GitHub repo for the hackseq19 project: Rule Based Learning for Transcriptional Regulation! 
+
+## Goals
+Our goals during hackseq19 are to:
 
 * a) Build an accurate classifier for a given gene regulation dataset.
 * b) Build an interpretable classifier that outputs useful rules, describing each dataset.
+
+## Data
 
 Our [leaderboard page is available here](http://spheric-alcove-256103.appspot.com/). You are required to sign in using your Google account. Once signed in, you can choose your username and submit files to the leaderboard. The leaderboard is based on a hacked version of my [Natural Language Processing course professor's website](http://anoopsarkar.github.io/nlp-class/). 
 
@@ -14,6 +19,9 @@ Our [leaderboard page is available here](http://spheric-alcove-256103.appspot.co
 * 1 Pokemon
 
 These come from a variety of sources, including gene regulation databases and previous Kaggle competitions.<br />
+
+## Rationale
+Transcription Factor Binding Sites (TFBS's) 
 
 <b>Team Lead:</b><br />
 Alex Sweeten <br /><img src="https://raw.githubusercontent.com/SweetiePi/asweeten.github.io/master/alex.gif" width="200" height="200" />
