@@ -138,17 +138,20 @@ def extract_FFT_component(data):
     return features, component
 
 
-#training_data = pd.read_csv('C:/Users/Chung/rule-based-learning/datasets/humanSP1/humanSP1_train.csv', sep= ',', header=None)
-#test_data = pd.read_csv('C:/Users/Chung/rule-based-learning/datasets/humanSP1/humanSP1_test.csv', sep= ',', header=None)
+training_data = pd.read_csv('C:/Users/Chung/rule-based-learning/datasets/ecoli_allpromoters/allpromoters_train.csv', sep= ',', header=None)
+test_data = pd.read_csv('C:/Users/Chung/rule-based-learning/datasets/ecoli_allpromoters/allpromoters_test.csv', sep= ',', header=None)
 
-training_data = pd.read_csv('C:/Users/Chung/rule-based-learning/datasets/ecoli_s70/sig70_train.csv', sep= ',', header=None)
-test_data = pd.read_csv('C:/Users/Chung/rule-based-learning/datasets/ecoli_s70/sig70_test.csv', sep= ',', header=None)
+#training_data = pd.read_csv('C:/Users/Chung/rule-based-learning/datasets/ecoli_s70/sig70_train.csv', sep= ',', header=None)
+#test_data = pd.read_csv('C:/Users/Chung/rule-based-learning/datasets/ecoli_s70/sig70_test.csv', sep= ',', header=None)
+
+
 
 X = training_data.values[:,0]
 Y = training_data.values[:, 1:2]
 X_real_test = test_data.values[:,0]
-X = [i.upper() for i in X]
-X_real_test = [i.upper() for i in X_real_test]
+X = np.array([i.upper() for i in X])
+X_real_test = np.array([i.upper() for i in X_real_test])
+nb = len(X[0])
 
 X_strand_corrected = []
 y_strand_corrected = []
@@ -165,7 +168,7 @@ Y = y_strand_corrected
 
 updated_X = []
 for line in X:
-    tmp= np.zeros((4, len(X[0])))
+    tmp= np.zeros((4, nb))
     for i in range(len(line)):
         if  line[i] == 'A':
             tmp[0][i] = 1
@@ -178,7 +181,7 @@ for line in X:
     tmp = tmp.flatten()
     updated_X.append(tmp)
 #Y = Y=='binding site'
-gc_content = calc_gc(X)
+#gc_content = calc_gc(X)
 symbol_2mers = get_kmers(2)
 symbol_3mers = get_kmers(3)
 symbol_4mers = get_kmers(4)
@@ -189,7 +192,7 @@ features_4mer = get_features(X, symbol_4mers)
 
 X = combine_features(updated_X, features_2mer)
 X = combine_features(X, features_3mer)
-#X = combine_features(X, features_4mer)
+X = combine_features(X, features_4mer)
 fft_features_name, fft_component = extract_FFT_component(updated_X)
 X = combine_features(X, fft_component)
 
@@ -203,17 +206,18 @@ y_test = y_test.T[0]
 
 #feature names
 ATCG_identity = ['A','C','G','T']
-features = ["1"]*4*len(X[0])
+features = ["1"]*4*nb
 for i in range(len(features)):
-    base = i//len(X[0])
-    features[i] = 'if position ' + str(i%len(X[0])) +' is ' + ATCG_identity[base]
-features = features + symbol_2mers+ symbol_3mers + fft_features_name
+    base = i//nb
+    features[i] = 'if position ' + str(i%nb) +' is ' + ATCG_identity[base]
+features = features + symbol_2mers+ symbol_3mers + symbol_4mers + fft_features_name
+features = np.array(features)
 #dtrain = xgb.DMatrix(X_train, label=y_train, feature_names=features)
 
 
 updated_X = []
 for line in X_real_test:
-    tmp= np.zeros((4, len(X[0])))
+    tmp= np.zeros((4, nb))
     for i in range(len(line)):
         if  line[i] == 'A':
             tmp[0][i] = 1
@@ -231,36 +235,55 @@ features_3mer = get_features(X_real_test, symbol_3mers)
 features_4mer = get_features(X_real_test, symbol_4mers)
 X_real_test = combine_features(updated_X, features_2mer)
 X_real_test = combine_features(X_real_test, features_3mer)
-#X_real_test = combine_features(X_real_test, features_4mer)
+X_real_test = combine_features(X_real_test, features_4mer)
 fft_features_name, fft_component = extract_FFT_component(updated_X)
 X_real_test = combine_features(X_real_test, fft_component)
 
 #training xgboost model
-tfbs_classifier = xgb.XGBClassifier(objective ='binary:logistic', colsample_bytree = 0.3, learning_rate = 0.1,
-                max_depth = 5, alpha = 10, n_estimators = 500)
+tfbs_classifier = RandomForestClassifier(criterion='entropy', n_estimators=1000)
 tfbs_classifier.fit(X_train, y_train)
 y_pred = tfbs_classifier.predict(X_test)
 scores = f1_score(y_test, y_pred, average='macro')
+#n_estimators=1000 for ecoli
+#n_estimators=1000 for ecoli
 
 #save results
 df_X_real_test = pd.DataFrame(data=X_real_test, columns=features)
 y_real_pred = tfbs_classifier.predict(df_X_real_test)
+#y_real_pred = tfbs_classifier.predict(selection.transform(df_X_real_test))
 df = pd.DataFrame(y_real_pred)
-#df.to_csv('../result/humanSP1/boosted-RF-3mer+fft.csv', header=0, index=0)
-df.to_csv('../result/ecoli_s70/boosted-RF-3mer+fft.csv', header=0, index=0)
+#df.to_csv('../result/ecoli_s70/RF-3mer+fft.csv', header=0, index=0)
+df.to_csv('../result/ecoli_allpromoters/RF-3mer+fft.csv', header=0, index=0)
 
 ##plot importance
-tfbs_classifier.get_booster().feature_names = features
-xgb.plot_importance(tfbs_classifier)
-plt.rcParams['figure.figsize'] = [100, 100]
+importances = tfbs_classifier.feature_importances_
+std = np.std([tree.feature_importances_ for tree in tfbs_classifier.estimators_],
+             axis=0)
+#indices = np.argsort(importances)[::-1]
+indices = np.argsort(importances)
+indices = indices[-20:]
+
+# Print the feature ranking
+print("Feature ranking:")
+
+for f in range(len(indices)):
+    print("%d. feature %s (%f)" % (f + 1, features[indices[f]], importances[indices[f]]))
+
+# Plot the feature importances of the forest
+fig, ax = plt.subplots()
+plt.title("Feature importances")
+#ax.barh(range(len(indices)), importances[indices], color="r", xerr=std[indices], align="center")
+ax.barh(range(len(indices)), importances[indices], color="r", align="center")
+ax.set_yticks(range(len(indices)))
+ax.set_yticklabels(features[indices])
+#plt.xlim([-1, len(indices)])
+#fig.savefig('../figure/ecoli_s70/feature_importance_RF-3mer+fft.png', bbox_inches='tight')
+fig.savefig('../figure/ecoli_allpromoters/feature_importance_RF-3mer+fft.png', bbox_inches='tight')
 plt.show()
-#plt.savefig('../figure/humanSP1/feature_importance_boostedtree-4mer.png')
-plt.savefig('../figure/ecoli_s70/feature_importance_boostedtree-4mer.png')
-'''
+
 #hyper-parameter tuning
-for i in [100,500,1000]:
-    tfbs_classifier = xgb.XGBClassifier(nthread=-1, objective ='binary:logistic', colsample_bytree = 0.3, learning_rate = 0.1,
-                max_depth = 10, alpha = 10, n_estimators = i)
+for i in [100, 500, 1000, 2000]:
+    tfbs_classifier = RandomForestClassifier(criterion='entropy', n_estimators=i)
     scores = np.zeros(1)
     for i in range(1):
         tfbs_classifier.fit(X_train, y_train)
@@ -269,17 +292,18 @@ for i in [100,500,1000]:
     print('accuracy: ', np.mean(scores), '+-', np.std(scores))
 #3mer best parameter: max_depth = 10, n_estimators = 100
 #4mer best parameter: max_depth = 5, n_estimators = 500
-    '''
+    
     
 # select features using threshold
+importances = tfbs_classifier.feature_importances_
 thresholds = np.sort(tfbs_classifier.feature_importances_)
-thresholds = thresholds[np.linspace(1,len(thresholds),len(thresholds))%20==0]
+thresholds = thresholds[np.linspace(1,len(thresholds),len(thresholds))%100==0]
 for thres in thresholds:
     selection = SelectFromModel(tfbs_classifier, threshold=thres, prefit=True)
     select_X_train = selection.transform(X_train)
     # train model
-    selection_model = xgb.XGBClassifier(objective ='binary:logistic', colsample_bytree = 0.3, learning_rate = 0.1,
-                max_depth = 5, alpha = 10, n_estimators = 500)
+    #selection_model = xgb.XGBClassifier()
+    selection_model = RandomForestClassifier(criterion='entropy', n_estimators=1000)
     selection_model.fit(select_X_train, y_train)
     # eval model
     select_X_test = selection.transform(X_test)
